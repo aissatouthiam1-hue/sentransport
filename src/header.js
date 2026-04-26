@@ -1,21 +1,20 @@
 import './header.css';
-function header(){
-    return(
 
-    <header className="header">
+function header() {
+// On crée la variable pour la date
+const date = new Date().toLocaleDateString('fr-FR');
 
-< h1 className="header-titre" > SenTransport </h1>
+return (
+<header>
+<h1>SenTransport</h1>
 
-<p className="header-soustitre">
-
+<p>
 Votre guide du transport en commun a Dakar
-
 </p>
 
+<p>{date}</p>
 </header>
-
- ) ;
-
+);
 }
 
 export default header;
