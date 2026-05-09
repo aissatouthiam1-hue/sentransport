@@ -10,10 +10,9 @@ return (
 {lignes.map(ligne => (
 <LigneBus
 key={ligne.id}
-numero ={ligne.numero}
-depart ={ligne.depart}
-arrivee ={ligne.arrivee}
+nom={ligne.nom}
 arrets={ligne.arrets}
+couleur={ligne.couleur}
 />
 ))}
 </div>
