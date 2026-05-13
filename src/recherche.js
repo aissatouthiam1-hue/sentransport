@@ -1,4 +1,5 @@
 import './recherche.css';
+
 function Recherche({ valeur, onChange }) {
 return (
 <div className="recherche">
@@ -9,7 +10,13 @@ placeholder="Rechercher une ligne (depart, arrivee)..."
 value={valeur}
 onChange={e => onChange(e.target.value)}
 />
+{valeur && (
+<button className="recherche-clear" onClick={() => onChange("")}>
+effacer
+</button>
+)}
 </div>
 );
 }
+
 export default Recherche;

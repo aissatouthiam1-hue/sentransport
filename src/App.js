@@ -7,12 +7,10 @@ import DetailLigne from './detailligne';
 import Footer from './footer';
 
 function App() {
-
-// ✅ ÉTAPE 6 — Les 2 états ICI, au début de la fonction
 const [recherche, setRecherche] = useState("");
 const [ligneSelectionnee, setLigneSelectionnee] = useState(null);
+const [nbRecherches, setNbRecherches] = useState(0); // Exo 3
 
-// ✅ Le tableau de données ICI, après les états
 const lignes = [
 { id: 1, numero: "1", depart: "Parcelles Assainies", arrivee: "Plateau", arrets: 14,
 listeArrets: ["Parcelles U14", "Parcelles U10", "Camberene", "Patte d'Oie", "Grand Dakar", "Colobane", "Ponty", "Plateau"] },
@@ -28,14 +26,18 @@ listeArrets: ["Almadies", "Ngor", "Yoff", "Ouest Foire", "Liberte 6", "Colobane"
 listeArrets: ["Yoff Village", "Aeroport LSS", "Parcelles U17", "Grand Yoff", "HLM", "Sandaga"] },
 ];
 
-// ✅ Le filtre ICI, après le tableau
 const lignesFiltrees = lignes.filter(l =>
 l.depart.toLowerCase().includes(recherche.toLowerCase()) ||
 l.arrivee.toLowerCase().includes(recherche.toLowerCase()) ||
 l.numero.includes(recherche)
 );
 
-// ✅ La fonction clic ICI, après le filtre
+// Exo 3 — onChange qui incrémente le compteur
+function handleRecherche(val) {
+setRecherche(val);
+setNbRecherches(n => n + 1);
+}
+
 function handleClickLigne(ligne) {
 if (ligneSelectionnee && ligneSelectionnee.id === ligne.id) {
 setLigneSelectionnee(null);
@@ -44,15 +46,30 @@ setLigneSelectionnee(ligne);
 }
 }
 
-// ✅ Le return tout à la fin
 return (
 <div className="App">
 <Header />
 <main className="contenu">
-<Recherche valeur={recherche} onChange={setRecherche} />
+
+{/* Exo 3 — Compteur de recherches */}
+<p className="compteur-recherches">
+Vous avez effectué {nbRecherches} recherche{nbRecherches > 1 ? 's' : ''}
+</p>
+
+{/* Exo 1 — Bouton effacer intégré dans Recherche */}
+<Recherche valeur={recherche} onChange={handleRecherche} />
+
 <p className="resultat-recherche">
 {lignesFiltrees.length} ligne{lignesFiltrees.length > 1 ? 's' : ''} trouvée{lignesFiltrees.length > 1 ? 's' : ''}
 </p>
+
+{/* Exo 2 — Message aucune ligne */}
+{lignesFiltrees.length === 0 && (
+<p className="aucune-ligne">
+Aucune ligne trouvée pour "{recherche}"
+</p>
+)}
+
 {lignesFiltrees.map(ligne => (
 <LigneBus
 key={ligne.id}
@@ -64,7 +81,9 @@ estSelectionnee={ligneSelectionnee && ligneSelectionnee.id === ligne.id}
 onClick={() => handleClickLigne(ligne)}
 />
 ))}
-{/* {ligneSelectionnee && <DetailLigne ligne={ligneSelectionnee} />} */}
+
+{ligneSelectionnee && <DetailLigne ligne={ligneSelectionnee} />}
+
 </main>
 <Footer />
 </div>
