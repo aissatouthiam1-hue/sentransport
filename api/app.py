@@ -6,7 +6,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Charger les donnees depuis le fichier JSON
-with open("ligne_ddd.json", "r") as f:
+with open("lignes_ddd.json", "r") as f:
     lignes = json.load(f)
 
 @app.route("/")
