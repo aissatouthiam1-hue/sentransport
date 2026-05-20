@@ -6,6 +6,8 @@ import LigneBus from './ligneBus';
 import DetailLigne from './detailligne';
 import Footer from './footer';
 import Carte from './carte';
+import Meteo from './meteo';
+import SignalerIncident from './signalerIncident';
 
 function App() {
   const [recherche, setRecherche] = useState("");
@@ -93,6 +95,8 @@ function App() {
       <Header />
       <main className="contenu">
 
+        <Meteo />
+
         <p className="compteur-recherches">
           Vous avez effectué {nbRecherches} recherche{nbRecherches > 1 ? 's' : ''}
         </p>
@@ -128,6 +132,8 @@ function App() {
         {ligneSelectionnee && <DetailLigne ligne={ligneSelectionnee} />}
 
         <Carte />
+
+        <SignalerIncident />
 
       </main>
       <Footer />
